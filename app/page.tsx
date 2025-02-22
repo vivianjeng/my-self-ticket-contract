@@ -1,18 +1,46 @@
-export default function Home() {
+'use client';
+
+import React from 'react';
+import OpenPassportQRcodeWrapper, { SelfAppBuilder } from '@selfxyz/qrcode';
+import { v4 as uuidv4 } from 'uuid';
+import { logo } from './content/playgroundAppLogo';
+
+// Dynamically import the component with no SSR
+// const OpenPassportQRcodeWrapper = dynamic(
+//   () => import('@selfxyz/qrcode').then((mod) => mod.default),
+//   { ssr: false }
+// );
+
+export default function Playground() {
+  const userId = uuidv4();
+
+  const selfApp = new SelfAppBuilder({
+    appName: "Self Playground",
+    scope: "self-playground",
+    endpoint: "https://playground.self.xyz/api/verify",
+    logoBase64: logo,
+    userId,
+    disclosures: {
+      name: true,
+      nationality: true,
+      date_of_birth: true,
+      passport_number: true,
+      minimumAge: 20,
+      excludedCountries: ["IRN", "IRQ", "PRK", "RUS", "SYR", "VEN"],
+      ofac: true,
+    }
+  }).build();
+
   return (
     <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Coming soon
-          </a>
-        </div>
+      <main className="flex flex-col gap-8 row-start-2 items-center mt-[-100px]">
+        <h1 className="text-3xl md:text-4xl font-bold text-white text-center mb-8">Self playground</h1>
+          <OpenPassportQRcodeWrapper
+            selfApp={selfApp}
+            onSuccess={() => {
+                console.log('success');
+            }}
+          />
       </main>
       <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
         <a
