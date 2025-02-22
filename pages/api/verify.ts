@@ -24,6 +24,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             // Extract the userId from the verification result
             // First, perform a basic verification to get the userId
             const prelimResult = await selfBackendVerifier.verify(proof, publicSignals);
+
+            console.log("Preliminary verification result:", prelimResult);
             
             // The userId is available in the verification result
             const userId = prelimResult.userId;
@@ -53,6 +55,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                 const savedOptions = verificationOptionsStore.getOptions(userId);
                 if (savedOptions) {
                     console.log("Retrieved saved options for userId:", userId);
+                    console.log("Saved options:", savedOptions);
                     
                     // Apply saved options
                     minimumAge = savedOptions.minimumAge || minimumAge;
