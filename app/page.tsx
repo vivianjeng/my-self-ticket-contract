@@ -5,12 +5,6 @@ import OpenPassportQRcodeWrapper, { SelfAppBuilder } from '@selfxyz/qrcode';
 import { v4 as uuidv4 } from 'uuid';
 import { logo } from './content/playgroundAppLogo';
 
-// Dynamically import the component with no SSR
-// const OpenPassportQRcodeWrapper = dynamic(
-//   () => import('@selfxyz/qrcode').then((mod) => mod.default),
-//   { ssr: false }
-// );
-
 export default function Playground() {
   const userId = uuidv4();
 
