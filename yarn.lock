@@ -654,9 +654,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@selfxyz/qrcode@npm:^0.0.2":
-  version: 0.0.2
-  resolution: "@selfxyz/qrcode@npm:0.0.2"
+"@selfxyz/qrcode@npm:^0.0.8":
+  version: 0.0.8
+  resolution: "@selfxyz/qrcode@npm:0.0.8"
   dependencies:
     "@types/react": "npm:^18.3.4"
     "@types/react-dom": "npm:^18.3.0"
@@ -673,7 +673,7 @@ __metadata:
     lottie-react: ^2.4.0
     react: ^18.0.0
     react-dom: ^18.0.0
-  checksum: 10c0/510e53a2232713bc0555d752a66a71c70997e08a9ffc5e5917e557bea843cd59213db529cf5552a3f08405a4e1799e20f8c9dedda596382f2af2c4f99652f95d
+  checksum: 10c0/81f7486d6449e82c8f76a390e05613562067e88c7df23ca71e9372b9d66370381eaf652d4fc2b058dfa296e7422e927ca16103724c4a68d7038dc4b3c5bdf517
   languageName: node
   linkType: hard
 
@@ -3830,7 +3830,7 @@ __metadata:
   dependencies:
     "@eslint/eslintrc": "npm:^3"
     "@selfxyz/core": "npm:^0.0.1"
-    "@selfxyz/qrcode": "npm:^0.0.2"
+    "@selfxyz/qrcode": "npm:^0.0.8"
     "@types/node": "npm:^20"
     "@types/react": "npm:^19.0.10"
     "@types/react-dom": "npm:^19.0.4"
