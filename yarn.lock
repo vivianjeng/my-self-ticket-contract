@@ -637,9 +637,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@selfxyz/core@npm:^0.0.1":
-  version: 0.0.1
-  resolution: "@selfxyz/core@npm:0.0.1"
+"@selfxyz/core@npm:^0.0.2":
+  version: 0.0.2
+  resolution: "@selfxyz/core@npm:0.0.2"
   dependencies:
     "@types/react": "npm:^18.3.4"
     "@types/react-dom": "npm:^18.3.0"
@@ -650,13 +650,13 @@ __metadata:
   peerDependencies:
     react: ^18.0.0
     react-dom: ^18.0.0
-  checksum: 10c0/e4bb3cfa73152fd127ef3d8e6e5131c6a90ddf7188d4d436c3605d54bf24b9d74651a7386fcba5c5f6e9797f82827734c1d8eb98603a0779f81a45d3ec36d160
+  checksum: 10c0/35f28b58a1d548700e9998c0d71b91fddf064105bfbf596fbb64d796291c30092650ad41eaffb023d5783bf65333398b3921ec24f56bd3051de0893e118a5297
   languageName: node
   linkType: hard
 
-"@selfxyz/qrcode@npm:^0.0.8":
-  version: 0.0.8
-  resolution: "@selfxyz/qrcode@npm:0.0.8"
+"@selfxyz/qrcode@npm:^0.0.9":
+  version: 0.0.9
+  resolution: "@selfxyz/qrcode@npm:0.0.9"
   dependencies:
     "@types/react": "npm:^18.3.4"
     "@types/react-dom": "npm:^18.3.0"
@@ -673,7 +673,7 @@ __metadata:
     lottie-react: ^2.4.0
     react: ^18.0.0
     react-dom: ^18.0.0
-  checksum: 10c0/81f7486d6449e82c8f76a390e05613562067e88c7df23ca71e9372b9d66370381eaf652d4fc2b058dfa296e7422e927ca16103724c4a68d7038dc4b3c5bdf517
+  checksum: 10c0/29018a6fc1d8d5d9873fdd7115c9b5312525156ac33e711cbb878d7658c3a11df63e36adcfe6413fbf4bf7c2b86a2d8694afe5bd46b8b4959b50538d6f7b2201
   languageName: node
   linkType: hard
 
@@ -909,6 +909,24 @@ __metadata:
     "@typescript-eslint/types": "npm:8.24.1"
     eslint-visitor-keys: "npm:^4.2.0"
   checksum: 10c0/ba09412fb4b1605aa73c890909c9a8dba2aa72e00ccd7d69baad17c564eedd77f489a06b1686985c7f0c49724787b82d76dcf4c146c4de44ef2c8776a9b6ad2b
+  languageName: node
+  linkType: hard
+
+"@upstash/redis@npm:^1.34.0":
+  version: 1.34.4
+  resolution: "@upstash/redis@npm:1.34.4"
+  dependencies:
+    crypto-js: "npm:^4.2.0"
+  checksum: 10c0/5253ad1646959ed284d0bf1f6fb9299111202f58eedce6cedb06b11022f484cba981df1a7e86359dfc3e047c20e5fc0a74ff17853260eee1cc738684dbcecd8a
+  languageName: node
+  linkType: hard
+
+"@vercel/kv@npm:^3.0.0":
+  version: 3.0.0
+  resolution: "@vercel/kv@npm:3.0.0"
+  dependencies:
+    "@upstash/redis": "npm:^1.34.0"
+  checksum: 10c0/55c0e197967c21161ba7bbee02be821975d8e900f2ca3946c9bfaefa1cb5ce94f9ce04aef07aca027c8c39a5ab2e9a2b54edc5c6b617c994d2a8fddfd9d55dc8
   languageName: node
   linkType: hard
 
@@ -1287,7 +1305,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"call-bind-apply-helpers@npm:^1.0.0, call-bind-apply-helpers@npm:^1.0.1":
+"call-bind-apply-helpers@npm:^1.0.0, call-bind-apply-helpers@npm:^1.0.1, call-bind-apply-helpers@npm:^1.0.2":
   version: 1.0.2
   resolution: "call-bind-apply-helpers@npm:1.0.2"
   dependencies:
@@ -1459,6 +1477,13 @@ __metadata:
     shebang-command: "npm:^2.0.0"
     which: "npm:^2.0.1"
   checksum: 10c0/053ea8b2135caff68a9e81470e845613e374e7309a47731e81639de3eaeb90c3d01af0e0b44d2ab9d50b43467223b88567dfeb3262db942dc063b9976718ffc1
+  languageName: node
+  linkType: hard
+
+"crypto-js@npm:^4.2.0":
+  version: 4.2.0
+  resolution: "crypto-js@npm:4.2.0"
+  checksum: 10c0/8fbdf9d56f47aea0794ab87b0eb9833baf80b01a7c5c1b0edc7faf25f662fb69ab18dc2199e2afcac54670ff0cd9607a9045a3f7a80336cccd18d77a55b9fdf0
   languageName: node
   linkType: hard
 
@@ -1803,7 +1828,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"es-object-atoms@npm:^1.0.0":
+"es-object-atoms@npm:^1.0.0, es-object-atoms@npm:^1.1.1":
   version: 1.1.1
   resolution: "es-object-atoms@npm:1.1.1"
   dependencies:
@@ -2424,20 +2449,20 @@ __metadata:
   linkType: hard
 
 "get-intrinsic@npm:^1.2.4, get-intrinsic@npm:^1.2.5, get-intrinsic@npm:^1.2.6, get-intrinsic@npm:^1.2.7":
-  version: 1.2.7
-  resolution: "get-intrinsic@npm:1.2.7"
+  version: 1.3.0
+  resolution: "get-intrinsic@npm:1.3.0"
   dependencies:
-    call-bind-apply-helpers: "npm:^1.0.1"
+    call-bind-apply-helpers: "npm:^1.0.2"
     es-define-property: "npm:^1.0.1"
     es-errors: "npm:^1.3.0"
-    es-object-atoms: "npm:^1.0.0"
+    es-object-atoms: "npm:^1.1.1"
     function-bind: "npm:^1.1.2"
-    get-proto: "npm:^1.0.0"
+    get-proto: "npm:^1.0.1"
     gopd: "npm:^1.2.0"
     has-symbols: "npm:^1.1.0"
     hasown: "npm:^2.0.2"
     math-intrinsics: "npm:^1.1.0"
-  checksum: 10c0/b475dec9f8bff6f7422f51ff4b7b8d0b68e6776ee83a753c1d627e3008c3442090992788038b37eff72e93e43dceed8c1acbdf2d6751672687ec22127933080d
+  checksum: 10c0/52c81808af9a8130f581e6a6a83e1ba4a9f703359e7a438d1369a5267a25412322f03dcbd7c549edaef0b6214a0630a28511d7df0130c93cfd380f4fa0b5b66a
   languageName: node
   linkType: hard
 
@@ -3185,7 +3210,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"loose-envify@npm:^1.4.0":
+"loose-envify@npm:^1.1.0, loose-envify@npm:^1.4.0":
   version: 1.4.0
   resolution: "loose-envify@npm:1.4.0"
   dependencies:
@@ -3829,11 +3854,12 @@ __metadata:
   resolution: "playground@workspace:."
   dependencies:
     "@eslint/eslintrc": "npm:^3"
-    "@selfxyz/core": "npm:^0.0.1"
-    "@selfxyz/qrcode": "npm:^0.0.8"
+    "@selfxyz/core": "npm:^0.0.2"
+    "@selfxyz/qrcode": "npm:^0.0.9"
     "@types/node": "npm:^20"
     "@types/react": "npm:^19.0.10"
     "@types/react-dom": "npm:^19.0.4"
+    "@vercel/kv": "npm:^3.0.0"
     eslint: "npm:^9"
     eslint-config-next: "npm:15.1.7"
     next: "npm:^15.1.7"
@@ -4021,7 +4047,19 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-dom@npm:^18.0.0, react-dom@npm:^19.0.0":
+"react-dom@npm:^18.0.0":
+  version: 18.3.1
+  resolution: "react-dom@npm:18.3.1"
+  dependencies:
+    loose-envify: "npm:^1.1.0"
+    scheduler: "npm:^0.23.2"
+  peerDependencies:
+    react: ^18.3.1
+  checksum: 10c0/a752496c1941f958f2e8ac56239172296fcddce1365ce45222d04a1947e0cc5547df3e8447f855a81d6d39f008d7c32eab43db3712077f09e3f67c4874973e85
+  languageName: node
+  linkType: hard
+
+"react-dom@npm:^19.0.0":
   version: 19.0.0
   resolution: "react-dom@npm:19.0.0"
   dependencies:
@@ -4049,7 +4087,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react@npm:^18.0.0, react@npm:^19.0.0":
+"react@npm:^18.0.0":
+  version: 18.3.1
+  resolution: "react@npm:18.3.1"
+  dependencies:
+    loose-envify: "npm:^1.1.0"
+  checksum: 10c0/283e8c5efcf37802c9d1ce767f302dd569dd97a70d9bb8c7be79a789b9902451e0d16334b05d73299b20f048cbc3c7d288bbbde10b701fa194e2089c237dbea3
+  languageName: node
+  linkType: hard
+
+"react@npm:^19.0.0":
   version: 19.0.0
   resolution: "react@npm:19.0.0"
   checksum: 10c0/9cad8f103e8e3a16d15cb18a0d8115d8bd9f9e1ce3420310aea381eb42aa0a4f812cf047bb5441349257a05fba8a291515691e3cb51267279b2d2c3253f38471
@@ -4242,6 +4289,15 @@ __metadata:
   version: 2.1.2
   resolution: "safer-buffer@npm:2.1.2"
   checksum: 10c0/7e3c8b2e88a1841c9671094bbaeebd94448111dd90a81a1f606f3f67708a6ec57763b3b47f06da09fc6054193e0e6709e77325415dc8422b04497a8070fa02d4
+  languageName: node
+  linkType: hard
+
+"scheduler@npm:^0.23.2":
+  version: 0.23.2
+  resolution: "scheduler@npm:0.23.2"
+  dependencies:
+    loose-envify: "npm:^1.1.0"
+  checksum: 10c0/26383305e249651d4c58e6705d5f8425f153211aef95f15161c151f7b8de885f24751b377e4a0b3dd42cce09aad3f87a61dab7636859c0d89b7daf1a1e2a5c78
   languageName: node
   linkType: hard
 
@@ -4905,14 +4961,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tslib@npm:2.7.0, tslib@npm:^2.4.0":
+"tslib@npm:2.7.0":
   version: 2.7.0
   resolution: "tslib@npm:2.7.0"
   checksum: 10c0/469e1d5bf1af585742128827000711efa61010b699cb040ab1800bcd3ccdd37f63ec30642c9e07c4439c1db6e46345582614275daca3e0f4abae29b0083f04a6
   languageName: node
   linkType: hard
 
-"tslib@npm:^2.8.0":
+"tslib@npm:^2.4.0, tslib@npm:^2.8.0":
   version: 2.8.1
   resolution: "tslib@npm:2.8.1"
   checksum: 10c0/9c4759110a19c53f992d9aae23aac5ced636e99887b51b9e61def52611732872ff7668757d4e4c61f19691e36f4da981cd9485e869b4a7408d689f6bf1f14e62

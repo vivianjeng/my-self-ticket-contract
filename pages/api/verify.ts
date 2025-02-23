@@ -1,35 +1,19 @@
-// pages/api/verify.ts
-
 import { NextApiRequest, NextApiResponse } from 'next';
-import { SelfBackendVerifier } from '@selfxyz/core';
-import verificationOptionsStore from '../../lib/verificationOptionsStore';
+import { getUserIdentifier, SelfBackendVerifier } from '@selfxyz/core';
+import { kv } from '@vercel/kv';
 import { countryNames } from '@selfxyz/core/dist/common/src/constants/constants';
+import { SelfApp } from '@selfxyz/qrcode';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
     if (req.method === 'POST') {
         try {
-            // Extract proof and publicSignals from the request
             const { proof, publicSignals } = req.body;
 
             if (!proof || !publicSignals) {
                 return res.status(400).json({ message: 'Proof and publicSignals are required' });
             }
 
-            // Create SelfBackendVerifier instance
-            const selfBackendVerifier = new SelfBackendVerifier(
-                'https://forno.celo.org',
-                "self-playground"
-            );
-
-            // Extract the userId from the verification result
-            // First, perform a basic verification to get the userId
-            const prelimResult = await selfBackendVerifier.verify(proof, publicSignals);
-
-            console.log("Preliminary verification result:", prelimResult);
-            
-            // The userId is available in the verification result
-            const userId = prelimResult.userId;
-            
+            const userId = await getUserIdentifier(publicSignals);
             console.log("Extracted userId from verification result:", userId);
             
             // Default options
@@ -44,17 +28,20 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             ];
             let enableOfac = true;
             let enabledDisclosures = {
+                issuing_state: true,
                 name: true,
                 nationality: true,
                 date_of_birth: true,
-                passport_number: true
+                passport_number: true,
+                gender: true,
+                expiry_date: true
             };
             
             // Try to retrieve options from store using userId
             if (userId) {
-                const savedOptions = verificationOptionsStore.getOptions(userId);
+                const savedOptions = await kv.get(userId) as SelfApp["disclosures"];
+                console.log("Retrieved saved options for userId:", userId, savedOptions);
                 if (savedOptions) {
-                    console.log("Retrieved saved options for userId:", userId);
                     console.log("Saved options:", savedOptions);
                     
                     // Apply saved options
@@ -72,22 +59,25 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                         };
                         
                         excludedCountryList = savedOptions.excludedCountries.map(
-                            code => codeToName[code] || code
+                            (code: string) => codeToName[code] || code
                         );
                     }
                     
                     enableOfac = savedOptions.ofac !== undefined ? savedOptions.ofac : enableOfac;
                     
-                    // Also apply disclosure settings
+                    // Apply all disclosure settings
                     enabledDisclosures = {
+                        issuing_state: savedOptions.issuing_state !== undefined ? savedOptions.issuing_state : enabledDisclosures.issuing_state,
                         name: savedOptions.name !== undefined ? savedOptions.name : enabledDisclosures.name,
                         nationality: savedOptions.nationality !== undefined ? savedOptions.nationality : enabledDisclosures.nationality,
                         date_of_birth: savedOptions.date_of_birth !== undefined ? savedOptions.date_of_birth : enabledDisclosures.date_of_birth,
-                        passport_number: savedOptions.passport_number !== undefined ? savedOptions.passport_number : enabledDisclosures.passport_number
+                        passport_number: savedOptions.passport_number !== undefined ? savedOptions.passport_number : enabledDisclosures.passport_number,
+                        gender: savedOptions.gender !== undefined ? savedOptions.gender : enabledDisclosures.gender,
+                        expiry_date: savedOptions.expiry_date !== undefined ? savedOptions.expiry_date : enabledDisclosures.expiry_date
                     };
                     
-                    // Clean up the options after use
-                    verificationOptionsStore.deleteOptions(userId);
+                    // Delete the options after use
+                    await kv.del(userId);
                 } else {
                     console.log("No saved options found for userId:", userId);
                 }
@@ -95,13 +85,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                 console.log("No userId found in verification result, using default options");
             }
             
-            // Create a new verifier with the retrieved options
             const configuredVerifier = new SelfBackendVerifier(
                 'https://forno.celo.org',
-                "self-playground"
+                "self-playground",
             );
             
-            // Apply configuration based on options
             configuredVerifier.setMinimumAge(minimumAge);
             
             if (excludedCountryList.length > 0) {
@@ -114,16 +102,15 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                 configuredVerifier.enableNameAndDobOfacCheck();
             }
 
-            // Perform verification with the configured verifier
             const result = await configuredVerifier.verify(proof, publicSignals);
-
             console.log("Verification result:", result);
 
             if (result.isValid) {
-                // Filter credential subject based on enabled disclosures
                 const filteredSubject = { ...result.credentialSubject };
                 
-                // Only include fields that were explicitly enabled
+                if (!enabledDisclosures.issuing_state && filteredSubject) {
+                    filteredSubject.issuing_state = "Not disclosed";
+                }
                 if (!enabledDisclosures.name && filteredSubject) {
                     filteredSubject.name = "Not disclosed";
                 }
@@ -136,6 +123,12 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                 if (!enabledDisclosures.passport_number && filteredSubject) {
                     filteredSubject.passport_number = "Not disclosed";
                 }
+                if (!enabledDisclosures.gender && filteredSubject) {
+                    filteredSubject.gender = "Not disclosed";
+                }
+                if (!enabledDisclosures.expiry_date && filteredSubject) {
+                    filteredSubject.expiry_date = "Not disclosed";
+                }
                 
                 res.status(200).json({
                     status: 'success',
@@ -145,7 +138,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                         minimumAge,
                         ofac: enableOfac,
                         excludedCountries: excludedCountryList.map(country => {
-                            // Convert back to codes for the response
                             const nameToCode: Record<string, string> = {
                                 "Iran (Islamic Republic of)": "IRN",
                                 "Iraq": "IRQ",

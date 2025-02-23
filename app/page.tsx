@@ -15,10 +15,15 @@ function Playground() {
     
     // State for disclosures and verification options
     const [disclosures, setDisclosures] = useState({
+        // DG1 disclosures
+        issuing_state: true,
         name: true,
         nationality: true,
         date_of_birth: true,
         passport_number: true,
+        gender: true,
+        expiry_date: true,
+        // Custom checks
         minimumAge: 20,
         excludedCountries: ["IRN", "IRQ", "PRK", "RUS", "SYR", "VEN"],
         ofac: true,
@@ -39,8 +44,6 @@ function Playground() {
     const handleAgeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const newAge = parseInt(e.target.value);
         setDisclosures(prev => ({ ...prev, minimumAge: newAge }));
-        // Reset options saved flag when options change
-        saveOptionsToServer();
     };
 
     // For country selection
@@ -66,8 +69,6 @@ function Playground() {
 
         setDisclosures(prev => ({ ...prev, excludedCountries: countryCodes }));
         setShowCountryModal(false);
-        // Reset options saved flag when options change
-        saveOptionsToServer();
     };
 
     // Toggle checkboxes for disclosure options
@@ -76,177 +77,211 @@ function Playground() {
             ...prev,
             [field]: !prev[field as keyof typeof prev]
         }));
-        // Reset options saved flag when options change
-        saveOptionsToServer();
     };
 
-    // Save options to server before showing QR code
     const saveOptionsToServer = async () => {
-        if (!userId || savingOptions) return; // Skip if no userId or already saving
+        if (!userId || savingOptions) return;
         
         setSavingOptions(true);
         try {
-            // Send options to server
             const response = await fetch('/api/saveOptions', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
-                    userId, // Use userId as the key for storing options
+                    userId,
                     options: {
                         minimumAge: disclosures.minimumAge,
                         excludedCountries: disclosures.excludedCountries,
                         ofac: disclosures.ofac,
+                        issuing_state: disclosures.issuing_state,
                         name: disclosures.name,
                         nationality: disclosures.nationality,
                         date_of_birth: disclosures.date_of_birth,
                         passport_number: disclosures.passport_number,
+                        gender: disclosures.gender,
+                        expiry_date: disclosures.expiry_date
                     }
                 }),
             });
 
             if (!response.ok) {
-                throw new Error('Failed to save options');
+                const errorData = await response.json();
+                throw new Error(errorData.message || 'Failed to save options');
             }
         } catch (error) {
             console.error('Error saving options:', error);
-            alert('Failed to save verification options. Please try again.');
+            // Only show alert if it's a user-facing error
+            if (error instanceof Error && error.message) {
+                alert(error.message);
+            } else {
+                alert('Failed to save verification options. Please try again.');
+            }
         } finally {
             setSavingOptions(false);
         }
     };
 
-    // Only save options when userId is available
+    // Debounce the saveOptionsToServer function to prevent too many calls
     useEffect(() => {
-        if (userId) {
-            saveOptionsToServer();
-        }
-    }, [userId]);
+        const timeoutId = setTimeout(() => {
+            if (userId) {
+                saveOptionsToServer();
+            }
+        }, 500);
 
+        return () => clearTimeout(timeoutId);
+    }, [disclosures, userId]);
 
-    // Construct the SelfApp object
-    // Use the same userId that we're using to store options
+    if (!userId) return null;
+
     const selfApp = new SelfAppBuilder({
         appName: "Self Playground",
         scope: "self-playground",
         endpoint: "https://playground.self.xyz/api/verify", 
         logoBase64: logo,
         userId,
-        disclosures: disclosures
+        disclosures: disclosures,
+        devMode: false,
     } as Partial<SelfApp>).build();
 
-    if (!userId) {
-        return (
-            <div className="App flex flex-col items-center justify-center px-4 min-h-screen py-8 bg-black text-white">
-                <h1 className="text-3xl md:text-4xl font-bold text-white text-center mb-8">Loading...</h1>
-            </div>
-        );
-    }
+    console.log("selfApp in:", selfApp);
 
     return (
-        <div className="App flex flex-col items-center justify-center px-4 min-h-screen py-8 bg-black text-white" suppressHydrationWarning>
-            <h1 className="text-3xl md:text-4xl font-bold text-white text-center mb-8">OpenPassport Playground v2</h1>
-            
-            <div className="w-full max-w-6xl flex gap-8">
-                {/* QR Code Section - Left Side */}
-                <div className="w-1/2 flex flex-col items-center justify-center">
-                    <OpenPassportQRcodeWrapper
-                        selfApp={selfApp}
-                        onSuccess={() => {
-                            console.log('Verification successful');
-                        }}
-                    />
-                    <p className="mt-4 text-sm text-gray-300">
-                        User ID: {userId.substring(0, 8)}...
-                    </p>
-                </div>
+        <div className="App flex flex-col min-h-screen bg-black text-white" suppressHydrationWarning>
+            <div className="flex-1 flex flex-col items-center justify-center px-4 py-8">
+                <h1 className="text-4xl md:text-5xl font-bold text-center pb-8 bg-gradient-to-r from-blue-500 to-purple-500 bg-clip-text text-transparent">
+                    Self Playground
+                </h1>
+                
+                <div className="w-full max-w-6xl flex gap-8">
+                    <div className="w-1/2 flex flex-col items-center justify-center">
+                        <OpenPassportQRcodeWrapper
+                            selfApp={selfApp}
+                            onSuccess={() => {
+                                console.log('Verification successful');
+                            }}
+                            darkMode={true}
+                        />
+                        <p className="mt-4 text-sm text-gray-300">
+                            User ID: {userId.substring(0, 8)}...
+                        </p>
+                    </div>
 
-                {/* Options Section - Right Side */}
-                <div className="w-1/2 bg-black rounded-lg shadow-md p-6 border border-gray-700">
-                    <h2 className="text-2xl font-semibold mb-4">Verification Options</h2>
+                    {/* Options Section - Right Side */}
+                    <div className="w-1/2 bg-black rounded-lg shadow-md p-6 border border-gray-700">
+                        <h2 className="text-2xl font-semibold mb-4">Verification Options</h2>
 
-                    <div className="space-y-6">
-                        <div className="border border-gray-700 rounded-md p-4">
-                            <h3 className="text-lg font-medium mb-3">Personal Information</h3>
-                            <div className="space-y-2">
-                                <label className="flex items-center space-x-2">
-                                    <input
-                                        type="checkbox"
-                                        checked={disclosures.name}
-                                        onChange={() => handleCheckboxChange('name')}
-                                        className="h-4 w-4"
-                                    />
-                                    <span>Disclose Name</span>
-                                </label>
-                                <label className="flex items-center space-x-2">
-                                    <input
-                                        type="checkbox"
-                                        checked={disclosures.nationality}
-                                        onChange={() => handleCheckboxChange('nationality')}
-                                        className="h-4 w-4"
-                                    />
-                                    <span>Disclose Nationality</span>
-                                </label>
-                                <label className="flex items-center space-x-2">
-                                    <input
-                                        type="checkbox"
-                                        checked={disclosures.date_of_birth}
-                                        onChange={() => handleCheckboxChange('date_of_birth')}
-                                        className="h-4 w-4"
-                                    />
-                                    <span>Disclose Date of Birth</span>
-                                </label>
-                                <label className="flex items-center space-x-2">
-                                    <input
-                                        type="checkbox"
-                                        checked={disclosures.passport_number}
-                                        onChange={() => handleCheckboxChange('passport_number')}
-                                        className="h-4 w-4"
-                                    />
-                                    <span>Disclose Passport Number</span>
-                                </label>
-                            </div>
-                        </div>
-                        
-                        <div className="border border-gray-700 rounded-md p-4">
-                            <h3 className="text-lg font-medium mb-3">Verification Rules</h3>
-                            <div className="space-y-4">
-                                <div>
-                                    <label className="block mb-1">Minimum Age: {disclosures.minimumAge}</label>
-                                    <input
-                                        type="range"
-                                        min="10"
-                                        max="100"
-                                        value={disclosures.minimumAge}
-                                        onChange={handleAgeChange}
-                                        className="w-full"
-                                    />
-                                </div>
-                                
-                                <div>
+                        <div className="space-y-6">
+                            <div className="border border-gray-700 rounded-md p-4">
+                                <h3 className="text-lg font-medium mb-3">Personal Information</h3>
+                                <div className="space-y-2">
                                     <label className="flex items-center space-x-2">
                                         <input
                                             type="checkbox"
-                                            checked={disclosures.ofac}
-                                            onChange={() => handleCheckboxChange('ofac')}
+                                            checked={disclosures.issuing_state}
+                                            onChange={() => handleCheckboxChange('issuing_state')}
                                             className="h-4 w-4"
                                         />
-                                        <span>Enable OFAC Check</span>
+                                        <span>Disclose Issuing State</span>
+                                    </label>
+                                    <label className="flex items-center space-x-2">
+                                        <input
+                                            type="checkbox"
+                                            checked={disclosures.name}
+                                            onChange={() => handleCheckboxChange('name')}
+                                            className="h-4 w-4"
+                                        />
+                                        <span>Disclose Name</span>
+                                    </label>
+                                    <label className="flex items-center space-x-2">
+                                        <input
+                                            type="checkbox"
+                                            checked={disclosures.nationality}
+                                            onChange={() => handleCheckboxChange('nationality')}
+                                            className="h-4 w-4"
+                                        />
+                                        <span>Disclose Nationality</span>
+                                    </label>
+                                    <label className="flex items-center space-x-2">
+                                        <input
+                                            type="checkbox"
+                                            checked={disclosures.date_of_birth}
+                                            onChange={() => handleCheckboxChange('date_of_birth')}
+                                            className="h-4 w-4"
+                                        />
+                                        <span>Disclose Date of Birth</span>
+                                    </label>
+                                    <label className="flex items-center space-x-2">
+                                        <input
+                                            type="checkbox"
+                                            checked={disclosures.passport_number}
+                                            onChange={() => handleCheckboxChange('passport_number')}
+                                            className="h-4 w-4"
+                                        />
+                                        <span>Disclose Passport Number</span>
+                                    </label>
+                                    <label className="flex items-center space-x-2">
+                                        <input
+                                            type="checkbox"
+                                            checked={disclosures.gender}
+                                            onChange={() => handleCheckboxChange('gender')}
+                                            className="h-4 w-4"
+                                        />
+                                        <span>Disclose Gender</span>
+                                    </label>
+                                    <label className="flex items-center space-x-2">
+                                        <input
+                                            type="checkbox"
+                                            checked={disclosures.expiry_date}
+                                            onChange={() => handleCheckboxChange('expiry_date')}
+                                            className="h-4 w-4"
+                                        />
+                                        <span>Disclose Expiry Date</span>
                                     </label>
                                 </div>
-                                
-                                <div>
-                                    <button
-                                        onClick={() => setShowCountryModal(true)}
-                                        className="px-3 py-1 bg-blue-600 text-white rounded hover:bg-blue-700 transition-colors"
-                                    >
-                                        Configure Excluded Countries
-                                    </button>
-                                    <div className="mt-2 text-sm text-gray-300">
-                                        {disclosures.excludedCountries.length > 0 
-                                            ? `${disclosures.excludedCountries.length} countries excluded` 
-                                            : "No countries excluded"}
+                            </div>
+                            
+                            <div className="border border-gray-700 rounded-md p-4">
+                                <h3 className="text-lg font-medium mb-3">Verification Rules</h3>
+                                <div className="space-y-4">
+                                    <div>
+                                        <label className="block mb-1">Minimum Age: {disclosures.minimumAge}</label>
+                                        <input
+                                            type="range"
+                                            min="10"
+                                            max="100"
+                                            value={disclosures.minimumAge}
+                                            onChange={handleAgeChange}
+                                            className="w-full"
+                                        />
+                                    </div>
+                                    
+                                    <div>
+                                        <label className="flex items-center space-x-2">
+                                            <input
+                                                type="checkbox"
+                                                checked={disclosures.ofac}
+                                                onChange={() => handleCheckboxChange('ofac')}
+                                                className="h-4 w-4"
+                                            />
+                                            <span>Enable OFAC Check</span>
+                                        </label>
+                                    </div>
+                                    
+                                    <div>
+                                        <button
+                                            onClick={() => setShowCountryModal(true)}
+                                            className="px-3 py-1 bg-blue-600 text-white rounded hover:bg-blue-700 transition-colors"
+                                        >
+                                            Configure Excluded Countries
+                                        </button>
+                                        <div className="mt-2 text-sm text-gray-300">
+                                            {disclosures.excludedCountries.length > 0 
+                                                ? `${disclosures.excludedCountries.length} countries excluded` 
+                                                : "No countries excluded"}
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -312,6 +347,16 @@ function Playground() {
                     </div>
                 </div>
             )}
+            <footer className="py-6 border-t border-gray-800">
+                <a
+                className="flex items-center justify-center gap-2 hover:underline hover:underline-offset-4"
+                href="https://self.xyz"
+                target="_blank"
+                rel="noopener noreferrer"
+                >
+                Go to self.xyz →
+                </a>
+            </footer>
         </div>
     );
 }
