@@ -1,9 +1,10 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import OpenPassportQRcodeWrapper, { SelfApp, SelfAppBuilder } from '@selfxyz/qrcode';
+import SelfQRcodeWrapper, { SelfApp, SelfAppBuilder } from '@selfxyz/qrcode';
 import { v4 as uuidv4 } from 'uuid';
 import { logo } from './content/playgroundAppLogo';
+import { countryCodes } from '@selfxyz/core';
 
 function Playground() {
     const [userId, setUserId] = useState<string | null>(null);
@@ -32,12 +33,12 @@ function Playground() {
     // For country selection modal
     const [showCountryModal, setShowCountryModal] = useState(false);
     const [selectedCountries, setSelectedCountries] = useState<string[]>([
-        "Iran (Islamic Republic of)", 
-        "Iraq", 
-        "Korea (Democratic People's Republic of)", 
-        "Russian Federation", 
-        "Syrian Arab Republic", 
-        "Venezuela (Bolivarian Republic of)"
+        countryCodes.IRN,
+        countryCodes.IRQ,
+        countryCodes.PRK,
+        countryCodes.RUS,
+        countryCodes.SYR,
+        countryCodes.VEN
     ]);
     
     // For minimum age slider
@@ -54,20 +55,13 @@ function Playground() {
     };
 
     const saveCountrySelection = () => {
-        // Convert full country names to 3-letter codes
-        const countryCodes = selectedCountries.map(country => {
-            const codeMap: Record<string, string> = {
-                "Iran (Islamic Republic of)": "IRN",
-                "Iraq": "IRQ",
-                "Korea (Democratic People's Republic of)": "PRK",
-                "Russian Federation": "RUS",
-                "Syrian Arab Republic": "SYR", 
-                "Venezuela (Bolivarian Republic of)": "VEN"
-            };
-            return codeMap[country] || country.substring(0, 3).toUpperCase();
+        // Convert country names back to codes
+        const codes = selectedCountries.map(countryName => {
+            const entry = Object.entries(countryCodes).find(([_, name]) => name === countryName);
+            return entry ? entry[0] : countryName.substring(0, 3).toUpperCase();
         });
 
-        setDisclosures(prev => ({ ...prev, excludedCountries: countryCodes }));
+        setDisclosures(prev => ({ ...prev, excludedCountries: codes }));
         setShowCountryModal(false);
     };
 
@@ -139,7 +133,7 @@ function Playground() {
     const selfApp = new SelfAppBuilder({
         appName: "Self Playground",
         scope: "self-playground",
-        endpoint: "https://playground.self.xyz/api/verify", 
+        endpoint: "https://playground.self.xyz/api/verify",
         logoBase64: logo,
         userId,
         disclosures: disclosures,
@@ -157,7 +151,7 @@ function Playground() {
                 
                 <div className="w-full max-w-6xl flex gap-8">
                     <div className="w-1/2 flex flex-col items-center justify-center">
-                        <OpenPassportQRcodeWrapper
+                        <SelfQRcodeWrapper
                             selfApp={selfApp}
                             onSuccess={() => {
                                 console.log('Verification successful');
@@ -305,20 +299,8 @@ function Playground() {
                         </div>
                         
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 mb-6 max-h-96 overflow-y-auto">
-                            {[
-                                "Iran (Islamic Republic of)",
-                                "Iraq",
-                                "Korea (Democratic People's Republic of)",
-                                "Russian Federation",
-                                "Syrian Arab Republic", 
-                                "Venezuela (Bolivarian Republic of)",
-                                "United States of America",
-                                "China",
-                                "Germany",
-                                "France",
-                                "Japan"
-                            ].map(country => (
-                                <label key={country} className="flex items-center space-x-2 p-1 hover:bg-gray-900 rounded">
+                            {Object.entries(countryCodes).map(([code, country]) => (
+                                <label key={code} className="flex items-center space-x-2 p-1 hover:bg-gray-900 rounded">
                                     <input
                                         type="checkbox"
                                         checked={selectedCountries.includes(country)}

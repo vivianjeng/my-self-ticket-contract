@@ -9,7 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@selfxyz/core": "^0.0.2",
+    "@selfxyz/core": "^0.0.3",
     "@selfxyz/qrcode": "^0.0.9",
     "@vercel/kv": "^3.0.0",
     "next": "^15.1.7",

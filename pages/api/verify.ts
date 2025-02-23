@@ -1,7 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import { getUserIdentifier, SelfBackendVerifier } from '@selfxyz/core';
+import { getUserIdentifier, SelfBackendVerifier, countryCodes } from '@selfxyz/core';
 import { kv } from '@vercel/kv';
-import { countryNames } from '@selfxyz/core/dist/common/src/constants/constants';
 import { SelfApp } from '@selfxyz/qrcode';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
@@ -19,12 +18,12 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             // Default options
             let minimumAge = 18;
             let excludedCountryList: string[] = [
-                "Iran (Islamic Republic of)", 
-                "Iraq", 
-                "Korea (Democratic People's Republic of)", 
-                "Russian Federation", 
-                "Syrian Arab Republic", 
-                "Venezuela (Bolivarian Republic of)"
+                countryCodes.IRN, 
+                countryCodes.IRQ, 
+                countryCodes.PRK, 
+                countryCodes.RUS, 
+                countryCodes.SYR, 
+                countryCodes.VEN
             ];
             let enableOfac = true;
             let enabledDisclosures = {
@@ -48,18 +47,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                     minimumAge = savedOptions.minimumAge || minimumAge;
                     
                     if (savedOptions.excludedCountries && savedOptions.excludedCountries.length > 0) {
-                        // Convert 3-letter codes to full country names if needed
-                        const codeToName: Record<string, string> = {
-                            "IRN": "Iran (Islamic Republic of)",
-                            "IRQ": "Iraq",
-                            "PRK": "Korea (Democratic People's Republic of)",
-                            "RUS": "Russian Federation", 
-                            "SYR": "Syrian Arab Republic",
-                            "VEN": "Venezuela (Bolivarian Republic of)"
-                        };
-                        
                         excludedCountryList = savedOptions.excludedCountries.map(
-                            (code: string) => codeToName[code] || code
+                            (code: string) => countryCodes[code as keyof typeof countryCodes] || code
                         );
                     }
                     
@@ -94,7 +83,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             
             if (excludedCountryList.length > 0) {
                 configuredVerifier.excludeCountries(
-                    ...excludedCountryList as (typeof countryNames)[number][]
+                    ...excludedCountryList as (keyof typeof countryCodes)[]
                 );
             }
             
@@ -137,16 +126,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                     verificationOptions: {
                         minimumAge,
                         ofac: enableOfac,
-                        excludedCountries: excludedCountryList.map(country => {
-                            const nameToCode: Record<string, string> = {
-                                "Iran (Islamic Republic of)": "IRN",
-                                "Iraq": "IRQ",
-                                "Korea (Democratic People's Republic of)": "PRK",
-                                "Russian Federation": "RUS", 
-                                "Syrian Arab Republic": "SYR",
-                                "Venezuela (Bolivarian Republic of)": "VEN"
-                            };
-                            return nameToCode[country] || country;
+                        excludedCountries: excludedCountryList.map(countryName => {
+                            const entry = Object.entries(countryCodes).find(([_, name]) => name === countryName);
+                            return entry ? entry[0] : countryName;
                         })
                     }
                 });
