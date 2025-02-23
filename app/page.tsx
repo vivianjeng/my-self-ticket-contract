@@ -149,8 +149,8 @@ function Playground() {
                     Self Playground
                 </h1>
                 
-                <div className="w-full max-w-6xl flex gap-8">
-                    <div className="w-1/2 flex flex-col items-center justify-center">
+                <div className="w-full max-w-6xl flex flex-col md:flex-row gap-8">
+                    <div className="w-full md:w-1/2 flex flex-col items-center justify-center">
                         <SelfQRcodeWrapper
                             selfApp={selfApp}
                             onSuccess={() => {
@@ -163,8 +163,7 @@ function Playground() {
                         </p>
                     </div>
 
-                    {/* Options Section - Right Side */}
-                    <div className="w-1/2 bg-black rounded-lg shadow-md p-6 border border-gray-700">
+                    <div className="w-full md:w-1/2 bg-black rounded-lg shadow-md p-6 border border-gray-700">
                         <h2 className="text-2xl font-semibold mb-4">Verification Options</h2>
 
                         <div className="space-y-6">
