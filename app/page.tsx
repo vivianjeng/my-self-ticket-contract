@@ -143,9 +143,9 @@ function Playground() {
     console.log("selfApp in:", selfApp);
 
     return (
-        <div className="App flex flex-col min-h-screen bg-black text-white" suppressHydrationWarning>
+        <div className="App flex flex-col min-h-screen bg-white text-black" suppressHydrationWarning>
             <div className="flex-1 flex flex-col items-center justify-center px-4 py-8">
-                <h1 className="text-4xl md:text-5xl font-bold text-center pb-8 bg-gradient-to-r from-blue-500 to-purple-500 bg-clip-text text-transparent">
+                <h1 className="text-4xl md:text-5xl font-bold text-center pb-8 text-black">
                     Self Playground
                 </h1>
                 
@@ -156,18 +156,18 @@ function Playground() {
                             onSuccess={() => {
                                 console.log('Verification successful');
                             }}
-                            darkMode={true}
+                            darkMode={false}
                         />
-                        <p className="mt-4 text-sm text-gray-300">
+                        <p className="mt-4 text-sm text-gray-700">
                             User ID: {userId.substring(0, 8)}...
                         </p>
                     </div>
 
-                    <div className="w-full md:w-1/2 bg-black rounded-lg shadow-md p-6 border border-gray-700">
+                    <div className="w-full md:w-1/2 bg-white rounded-lg shadow-md p-6 border border-gray-300">
                         <h2 className="text-2xl font-semibold mb-4">Verification Options</h2>
 
                         <div className="space-y-6">
-                            <div className="border border-gray-700 rounded-md p-4">
+                            <div className="border border-gray-300 rounded-md p-4">
                                 <h3 className="text-lg font-medium mb-3">Personal Information</h3>
                                 <div className="space-y-2">
                                     <label className="flex items-center space-x-2">
@@ -236,7 +236,7 @@ function Playground() {
                                 </div>
                             </div>
                             
-                            <div className="border border-gray-700 rounded-md p-4">
+                            <div className="border border-gray-300 rounded-md p-4">
                                 <h3 className="text-lg font-medium mb-3">Verification Rules</h3>
                                 <div className="space-y-4">
                                     <div>
@@ -270,7 +270,7 @@ function Playground() {
                                         >
                                             Configure Excluded Countries
                                         </button>
-                                        <div className="mt-2 text-sm text-gray-300">
+                                        <div className="mt-2 text-sm text-gray-700">
                                             {disclosures.excludedCountries.length > 0 
                                                 ? `${disclosures.excludedCountries.length} countries excluded` 
                                                 : "No countries excluded"}
@@ -285,21 +285,21 @@ function Playground() {
             
             {/* Country Selection Modal */}
             {showCountryModal && (
-                <div className="fixed inset-0 bg-black bg-opacity-90 flex items-center justify-center z-50">
-                    <div className="bg-black rounded-lg shadow-xl p-6 max-w-2xl w-full max-h-[80vh] overflow-y-auto border border-gray-700">
+                <div className="fixed inset-0 bg-white bg-opacity-90 flex items-center justify-center z-50">
+                    <div className="bg-white rounded-lg shadow-xl p-6 max-w-2xl w-full max-h-[80vh] overflow-y-auto border border-gray-300">
                         <h3 className="text-xl font-semibold mb-4">Select Countries to Exclude</h3>
                         
                         <div className="mb-4">
                             <input
                                 type="text"
                                 placeholder="Search countries..."
-                                className="w-full p-2 border border-gray-700 rounded bg-black text-white"
+                                className="w-full p-2 border border-gray-300 rounded bg-white text-black"
                             />
                         </div>
                         
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 mb-6 max-h-96 overflow-y-auto">
                             {Object.entries(countryCodes).map(([code, country]) => (
-                                <label key={code} className="flex items-center space-x-2 p-1 hover:bg-gray-900 rounded">
+                                <label key={code} className="flex items-center space-x-2 p-1 hover:bg-gray-100 rounded">
                                     <input
                                         type="checkbox"
                                         checked={selectedCountries.includes(country)}
@@ -314,7 +314,7 @@ function Playground() {
                         <div className="flex justify-end space-x-3">
                             <button
                                 onClick={() => setShowCountryModal(false)}
-                                className="px-4 py-2 border border-gray-700 rounded hover:bg-gray-900"
+                                className="px-4 py-2 border border-gray-300 rounded hover:bg-gray-100"
                             >
                                 Cancel
                             </button>
@@ -328,7 +328,7 @@ function Playground() {
                     </div>
                 </div>
             )}
-            <footer className="py-6 border-t border-gray-800">
+            <footer className="py-6 border-t border-gray-200">
                 <a
                 className="flex items-center justify-center gap-2 hover:underline hover:underline-offset-4"
                 href="https://self.xyz"
