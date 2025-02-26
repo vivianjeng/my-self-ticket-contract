@@ -17,6 +17,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             }
 
             const userId = await getUserIdentifier(publicSignals);
+            console.log("Extracted userId from verification result:", userId);
 
             // Default options
             let minimumAge;
