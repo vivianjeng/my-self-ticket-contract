@@ -41,6 +41,9 @@ function Playground() {
         countryCodes.VEN
     ]);
     
+    // Add this state for error message
+    const [countrySelectionError, setCountrySelectionError] = useState<string | null>(null);
+
     // For minimum age slider
     const handleAgeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const newAge = parseInt(e.target.value);
@@ -49,9 +52,22 @@ function Playground() {
 
     // For country selection
     const handleCountryToggle = (country: string) => {
-        setSelectedCountries(prev => 
-            prev.includes(country) ? prev.filter(c => c !== country) : [...prev, country]
-        );
+        setSelectedCountries(prev => {
+            // If already selected, remove it
+            if (prev.includes(country)) {
+                setCountrySelectionError(null);
+                return prev.filter(c => c !== country);
+            }
+            
+            // If trying to add when at limit, show error
+            if (prev.length >= 40) {
+                setCountrySelectionError('Maximum 40 countries can be excluded');
+                return prev;
+            }
+            
+            // Otherwise add the country
+            return [...prev, country];
+        });
     };
 
     const saveCountrySelection = () => {
@@ -288,6 +304,12 @@ function Playground() {
                 <div className="fixed inset-0 bg-white bg-opacity-90 flex items-center justify-center z-50">
                     <div className="bg-white rounded-lg shadow-xl p-6 max-w-2xl w-full max-h-[80vh] overflow-y-auto border border-gray-300">
                         <h3 className="text-xl font-semibold mb-4">Select Countries to Exclude</h3>
+                        
+                        {countrySelectionError && (
+                            <div className="mb-4 p-2 bg-red-100 text-red-700 rounded">
+                                {countrySelectionError}
+                            </div>
+                        )}
                         
                         <div className="mb-4">
                             <input
