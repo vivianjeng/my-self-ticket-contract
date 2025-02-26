@@ -17,14 +17,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             
             // Default options
             let minimumAge;
-            let excludedCountryList: string[] = [
-                countryCodes.IRN, 
-                countryCodes.IRQ, 
-                countryCodes.PRK, 
-                countryCodes.RUS, 
-                countryCodes.SYR, 
-                countryCodes.VEN
-            ];
+            let excludedCountryList: string[] = [];
             let enableOfac = false;
             let enabledDisclosures = {
                 issuing_state: false,
