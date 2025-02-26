@@ -152,7 +152,10 @@ function Playground() {
         endpoint: "https://playground.self.xyz/api/verify",
         logoBase64: logo,
         userId,
-        disclosures: disclosures,
+        disclosures: {
+            ...disclosures,
+            minimumAge: disclosures.minimumAge > 0 ? disclosures.minimumAge : undefined,
+        },
         devMode: false,
     } as Partial<SelfApp>).build();
 
@@ -256,17 +259,19 @@ function Playground() {
                                 <h3 className="text-lg font-medium mb-3">Verification Rules</h3>
                                 <div className="space-y-4">
                                     <div>
-                                        <label className="block mb-1">Minimum Age: {disclosures.minimumAge}</label>
+                                        <label className="block mb-1">Minimum Age: {disclosures.minimumAge || 'None'}</label>
                                         <input
                                             type="range"
-                                            min="10"
+                                            min="0"
                                             max="99"
                                             value={disclosures.minimumAge}
                                             onChange={handleAgeChange}
                                             className="w-full"
                                         />
+                                        <div className="text-sm text-gray-500 mt-1">
+                                            Set to 0 to disable age requirement
+                                        </div>
                                     </div>
-                                    
                                     <div>
                                         <label className="flex items-center space-x-2">
                                             <input
