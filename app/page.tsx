@@ -244,7 +244,7 @@ function Playground() {
                                         <input
                                             type="range"
                                             min="10"
-                                            max="100"
+                                            max="99"
                                             value={disclosures.minimumAge}
                                             onChange={handleAgeChange}
                                             className="w-full"
