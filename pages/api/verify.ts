@@ -1,5 +1,9 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import { getUserIdentifier, SelfBackendVerifier, countryCodes } from '@selfxyz/core';
+import { 
+    getUserIdentifier, 
+    SelfBackendVerifier, 
+    countryCodes 
+} from '@selfxyz/core';
 import { kv } from '@vercel/kv';
 import { SelfApp } from '@selfxyz/qrcode';
 
@@ -14,7 +18,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
             const userId = await getUserIdentifier(publicSignals);
             console.log("Extracted userId from verification result:", userId);
-            
+
             // Default options
             let minimumAge;
             let excludedCountryList: string[] = [];
@@ -32,7 +36,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             // Try to retrieve options from store using userId
             if (userId) {
                 const savedOptions = await kv.get(userId) as SelfApp["disclosures"];
-                console.log("Retrieved saved options for userId:", userId, savedOptions);
                 if (savedOptions) {
                     console.log("Saved options:", savedOptions);
                     
