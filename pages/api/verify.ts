@@ -16,7 +16,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             console.log("Extracted userId from verification result:", userId);
             
             // Default options
-            let minimumAge = 18;
+            let minimumAge;
             let excludedCountryList: string[] = [
                 countryCodes.IRN, 
                 countryCodes.IRQ, 
@@ -25,15 +25,15 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                 countryCodes.SYR, 
                 countryCodes.VEN
             ];
-            let enableOfac = true;
+            let enableOfac = false;
             let enabledDisclosures = {
-                issuing_state: true,
-                name: true,
-                nationality: true,
-                date_of_birth: true,
-                passport_number: true,
-                gender: true,
-                expiry_date: true
+                issuing_state: false,
+                name: false,
+                nationality: false,
+                date_of_birth: false,
+                passport_number: false,
+                gender: false,
+                expiry_date: false
             };
             
             // Try to retrieve options from store using userId
@@ -79,7 +79,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                 "self-playground",
             );
             
-            configuredVerifier.setMinimumAge(minimumAge);
+            if (minimumAge !== undefined) {
+                configuredVerifier.setMinimumAge(minimumAge);
+            }
             
             if (excludedCountryList.length > 0) {
                 configuredVerifier.excludeCountries(
