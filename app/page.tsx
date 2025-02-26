@@ -102,7 +102,7 @@ function Playground() {
                 body: JSON.stringify({
                     userId,
                     options: {
-                        minimumAge: disclosures.minimumAge,
+                        minimumAge: disclosures.minimumAge !== undefined ? disclosures.minimumAge : undefined,
                         excludedCountries: disclosures.excludedCountries,
                         ofac: disclosures.ofac,
                         issuing_state: disclosures.issuing_state,
