@@ -17,15 +17,15 @@ function Playground() {
     // State for disclosures and verification options
     const [disclosures, setDisclosures] = useState({
         // DG1 disclosures
-        issuing_state: true,
-        name: true,
+        issuing_state: false,
+        name: false,
         nationality: true,
-        date_of_birth: true,
-        passport_number: true,
-        gender: true,
-        expiry_date: true,
+        date_of_birth: false,
+        passport_number: false,
+        gender: false,
+        expiry_date: false,
         // Custom checks
-        minimumAge: 20,
+        minimumAge: 18,
         excludedCountries: ["IRN", "IRQ", "PRK", "RUS", "SYR", "VEN"],
         ofac: true,
     });
