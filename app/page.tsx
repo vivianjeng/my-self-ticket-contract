@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import Image from 'next/image';
 import SelfQRcodeWrapper, { SelfApp, SelfAppBuilder } from '@selfxyz/qrcode';
 import { logo } from './content/playgroundAppLogo';
 
@@ -20,7 +21,7 @@ function Birthday() {
         userId: address,
         userIdType: "hex",
         disclosures: {
-            date_of_birth: true, // Only request date of birth
+            date_of_birth: true,
         },
         devMode: false,
     } as Partial<SelfApp>).build();
@@ -34,9 +35,11 @@ function Birthday() {
             <nav className="w-full bg-white border-b border-gray-200 py-3 px-6 flex items-center justify-between">
                 <div className="flex items-center">
                     <div className="mr-8">
-                        <img 
+                        <Image 
                             src="/self.svg" 
                             alt="Self Logo" 
+                            width={32}
+                            height={32}
                             className="h-8"
                         />
                     </div>
@@ -67,7 +70,7 @@ function Birthday() {
             <div className="container mx-auto max-w-2xl px-4 py-8">
                 <div className="bg-white rounded-lg shadow-md p-6 border border-gray-300">
                     <h2 className="text-2xl font-semibold mb-6 text-center">
-                        🎉 It's your birthday? Claim 100 USDC 🎂 🎁
+                        🎉 It&apos;s your birthday? Claim 100 USDC 🎂 🎁
                     </h2>
 
                     <div className="mb-6">
