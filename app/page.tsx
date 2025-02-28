@@ -320,7 +320,7 @@ function Playground() {
                             />
                         </div>
                         
-                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 mb-6 max-h-96 overflow-y-auto">
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 mb-6 max-h-80 overflow-y-auto">
                             {filteredCountries.map(([code, country]) => (
                                 <label key={code} className="flex items-center space-x-2 p-1 hover:bg-gray-100 rounded">
                                     <input
