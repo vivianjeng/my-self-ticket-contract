@@ -6,6 +6,43 @@ import { v4 as uuidv4 } from 'uuid';
 import { logo } from './content/playgroundAppLogo';
 import { countryCodes } from '@selfxyz/core';
 
+function Navbar() {
+    return (
+        <nav className="w-full bg-white border-b border-gray-200 py-3 px-6 flex items-center justify-between">
+            <div className="flex items-center">
+                <div className="mr-8">
+                    <img 
+                        src="/self.svg" 
+                        alt="Self Logo" 
+                        className="h-8"
+                    />
+                </div>
+            </div>
+            <div className="flex items-center space-x-4">
+                <a 
+                    href="https://github.com/zk-passport/openpassport" 
+                    target="_blank" 
+                    rel="noopener noreferrer" 
+                    className="bg-gray-900 text-white px-4 py-2 rounded-md flex items-center hover:bg-gray-800 transition-colors"
+                >
+                    <span className="mr-2">Star on Github</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+                    </svg>
+                </a>
+                <a
+                    className="flex items-center justify-center gap-2 hover:underline hover:underline-offset-4"
+                    href="https://self.xyz"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    Go to self.xyz →
+                </a>
+            </div>
+      </nav>
+    );
+}
+
 function Playground() {
     const [userId, setUserId] = useState<string | null>(null);
     const [savingOptions, setSavingOptions] = useState(false);
@@ -157,11 +194,8 @@ function Playground() {
 
     return (
         <div className="App flex flex-col min-h-screen bg-white text-black" suppressHydrationWarning>
+            <Navbar />
             <div className="flex-1 flex flex-col items-center justify-center px-4 py-8">
-                <h1 className="text-4xl md:text-5xl font-bold text-center pb-8 text-black">
-                    Self Playground
-                </h1>
-                
                 <div className="w-full max-w-6xl flex flex-col md:flex-row gap-8">
                     <div className="w-full md:w-1/2 flex flex-col items-center justify-center">
                         <SelfQRcodeWrapper
@@ -182,73 +216,76 @@ function Playground() {
                         <div className="space-y-6">
                             <div className="border border-gray-300 rounded-md p-4">
                                 <h3 className="text-lg font-medium mb-3">Personal Information</h3>
-                                <div className="space-y-2">
-                                    <label className="flex items-center space-x-2">
-                                        <input
-                                            type="checkbox"
-                                            checked={disclosures.issuing_state}
-                                            onChange={() => handleCheckboxChange('issuing_state')}
-                                            className="h-4 w-4"
-                                        />
-                                        <span>Disclose Issuing State</span>
-                                    </label>
-                                    <label className="flex items-center space-x-2">
-                                        <input
-                                            type="checkbox"
-                                            checked={disclosures.name}
-                                            onChange={() => handleCheckboxChange('name')}
-                                            className="h-4 w-4"
-                                        />
-                                        <span>Disclose Name</span>
-                                    </label>
-                                    <label className="flex items-center space-x-2">
-                                        <input
-                                            type="checkbox"
-                                            checked={disclosures.nationality}
-                                            onChange={() => handleCheckboxChange('nationality')}
-                                            className="h-4 w-4"
-                                        />
-                                        <span>Disclose Nationality</span>
-                                    </label>
-                                    <label className="flex items-center space-x-2">
-                                        <input
-                                            type="checkbox"
-                                            checked={disclosures.date_of_birth}
-                                            onChange={() => handleCheckboxChange('date_of_birth')}
-                                            className="h-4 w-4"
-                                        />
-                                        <span>Disclose Date of Birth</span>
-                                    </label>
-                                    <label className="flex items-center space-x-2">
-                                        <input
-                                            type="checkbox"
-                                            checked={disclosures.passport_number}
-                                            onChange={() => handleCheckboxChange('passport_number')}
-                                            className="h-4 w-4"
-                                        />
-                                        <span>Disclose Passport Number</span>
-                                    </label>
-                                    <label className="flex items-center space-x-2">
-                                        <input
-                                            type="checkbox"
-                                            checked={disclosures.gender}
-                                            onChange={() => handleCheckboxChange('gender')}
-                                            className="h-4 w-4"
-                                        />
-                                        <span>Disclose Gender</span>
-                                    </label>
-                                    <label className="flex items-center space-x-2">
-                                        <input
-                                            type="checkbox"
-                                            checked={disclosures.expiry_date}
-                                            onChange={() => handleCheckboxChange('expiry_date')}
-                                            className="h-4 w-4"
-                                        />
-                                        <span>Disclose Expiry Date</span>
-                                    </label>
+                                <div className="grid grid-cols-2 gap-4">
+                                    <div className="space-y-2">
+                                        <label className="flex items-center space-x-2">
+                                            <input
+                                                type="checkbox"
+                                                checked={disclosures.issuing_state}
+                                                onChange={() => handleCheckboxChange('issuing_state')}
+                                                className="h-4 w-4"
+                                            />
+                                            <span>Disclose Issuing State</span>
+                                        </label>
+                                        <label className="flex items-center space-x-2">
+                                            <input
+                                                type="checkbox"
+                                                checked={disclosures.name}
+                                                onChange={() => handleCheckboxChange('name')}
+                                                className="h-4 w-4"
+                                            />
+                                            <span>Disclose Name</span>
+                                        </label>
+                                        <label className="flex items-center space-x-2">
+                                            <input
+                                                type="checkbox"
+                                                checked={disclosures.nationality}
+                                                onChange={() => handleCheckboxChange('nationality')}
+                                                className="h-4 w-4"
+                                            />
+                                            <span>Disclose Nationality</span>
+                                        </label>
+                                        <label className="flex items-center space-x-2">
+                                            <input
+                                                type="checkbox"
+                                                checked={disclosures.date_of_birth}
+                                                onChange={() => handleCheckboxChange('date_of_birth')}
+                                                className="h-4 w-4"
+                                            />
+                                            <span>Disclose Date of Birth</span>
+                                        </label>
+                                    </div>
+                                    <div className="space-y-2">
+                                        <label className="flex items-center space-x-2">
+                                            <input
+                                                type="checkbox"
+                                                checked={disclosures.passport_number}
+                                                onChange={() => handleCheckboxChange('passport_number')}
+                                                className="h-4 w-4"
+                                            />
+                                            <span>Disclose Passport Number</span>
+                                        </label>
+                                        <label className="flex items-center space-x-2">
+                                            <input
+                                                type="checkbox"
+                                                checked={disclosures.gender}
+                                                onChange={() => handleCheckboxChange('gender')}
+                                                className="h-4 w-4"
+                                            />
+                                            <span>Disclose Gender</span>
+                                        </label>
+                                        <label className="flex items-center space-x-2">
+                                            <input
+                                                type="checkbox"
+                                                checked={disclosures.expiry_date}
+                                                onChange={() => handleCheckboxChange('expiry_date')}
+                                                className="h-4 w-4"
+                                            />
+                                            <span>Disclose Expiry Date</span>
+                                        </label>
+                                    </div>
                                 </div>
                             </div>
-                            
                             <div className="border border-gray-300 rounded-md p-4">
                                 <h3 className="text-lg font-medium mb-3">Verification Rules</h3>
                                 <div className="space-y-4">
@@ -351,16 +388,6 @@ function Playground() {
                     </div>
                 </div>
             )}
-            <footer className="py-6 border-t border-gray-200">
-                <a
-                className="flex items-center justify-center gap-2 hover:underline hover:underline-offset-4"
-                href="https://self.xyz"
-                target="_blank"
-                rel="noopener noreferrer"
-                >
-                Go to self.xyz →
-                </a>
-            </footer>
         </div>
     );
 }
