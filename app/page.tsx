@@ -14,7 +14,6 @@ function Playground() {
         setUserId(uuidv4());
     }, []);
     
-    // State for disclosures and verification options
     const [disclosures, setDisclosures] = useState({
         // DG1 disclosures
         issuing_state: false,
@@ -30,7 +29,6 @@ function Playground() {
         ofac: true,
     });
 
-    // For country selection modal
     const [showCountryModal, setShowCountryModal] = useState(false);
     const [selectedCountries, setSelectedCountries] = useState<string[]>([
         countryCodes.IRN,
@@ -41,37 +39,31 @@ function Playground() {
         countryCodes.VEN
     ]);
     
-    // Add this state for error message
     const [countrySelectionError, setCountrySelectionError] = useState<string | null>(null);
+    const [searchQuery, setSearchQuery] = useState('');
 
-    // For minimum age slider
     const handleAgeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const newAge = parseInt(e.target.value);
         setDisclosures(prev => ({ ...prev, minimumAge: newAge }));
     };
 
-    // For country selection
     const handleCountryToggle = (country: string) => {
         setSelectedCountries(prev => {
-            // If already selected, remove it
             if (prev.includes(country)) {
                 setCountrySelectionError(null);
                 return prev.filter(c => c !== country);
             }
             
-            // If trying to add when at limit, show error
             if (prev.length >= 40) {
                 setCountrySelectionError('Maximum 40 countries can be excluded');
                 return prev;
             }
             
-            // Otherwise add the country
             return [...prev, country];
         });
     };
 
     const saveCountrySelection = () => {
-        // Convert country names back to codes
         const codes = selectedCountries.map(countryName => {
             const entry = Object.entries(countryCodes).find(([_, name]) => name === countryName);
             return entry ? entry[0] : countryName.substring(0, 3).toUpperCase();
@@ -81,7 +73,6 @@ function Playground() {
         setShowCountryModal(false);
     };
 
-    // Toggle checkboxes for disclosure options
     const handleCheckboxChange = (field: string) => {
         setDisclosures(prev => ({
             ...prev,
@@ -133,7 +124,6 @@ function Playground() {
         }
     };
 
-    // Debounce the saveOptionsToServer function to prevent too many calls
     useEffect(() => {
         const timeoutId = setTimeout(() => {
             if (userId) {
@@ -160,6 +150,10 @@ function Playground() {
     } as Partial<SelfApp>).build();
 
     console.log("selfApp in:", selfApp);
+
+    const filteredCountries = Object.entries(countryCodes).filter(([_, country]) =>
+        country.toLowerCase().includes(searchQuery.toLowerCase())
+    );
 
     return (
         <div className="App flex flex-col min-h-screen bg-white text-black" suppressHydrationWarning>
@@ -320,12 +314,14 @@ function Playground() {
                             <input
                                 type="text"
                                 placeholder="Search countries..."
+                                value={searchQuery}
+                                onChange={(e) => setSearchQuery(e.target.value)}
                                 className="w-full p-2 border border-gray-300 rounded bg-white text-black"
                             />
                         </div>
                         
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 mb-6 max-h-96 overflow-y-auto">
-                            {Object.entries(countryCodes).map(([code, country]) => (
+                            {filteredCountries.map(([code, country]) => (
                                 <label key={code} className="flex items-center space-x-2 p-1 hover:bg-gray-100 rounded">
                                     <input
                                         type="checkbox"
