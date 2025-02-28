@@ -3862,6 +3862,7 @@ __metadata:
     "@vercel/kv": "npm:^3.0.0"
     eslint: "npm:^9"
     eslint-config-next: "npm:15.1.7"
+    ethers: "npm:^6.13.5"
     next: "npm:^15.1.7"
     postcss: "npm:^8"
     react: "npm:^19.0.0"

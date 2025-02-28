@@ -14,7 +14,8 @@ function Birthday() {
     const selfApp = new SelfAppBuilder({
         appName: "Self Birthday",
         scope: "self-birthday",
-        endpoint: "https://playground.self.xyz/api/verify",
+        endpoint: "https://happy-birthday-rho-nine.vercel.app/api/verify",
+        // endpoint: "https://6883-37-168-31-204.ngrok-free.app/api/verify",
         logoBase64: logo,
         userId: address,
         userIdType: "hex",
@@ -66,7 +67,7 @@ function Birthday() {
             <div className="container mx-auto max-w-2xl px-4 py-8">
                 <div className="bg-white rounded-lg shadow-md p-6 border border-gray-300">
                     <h2 className="text-2xl font-semibold mb-6 text-center">
-                        Verify your birthday, receive 100 USDC
+                        🎉 It's your birthday? Claim 100 USDC 🎂 🎁
                     </h2>
 
                     <div className="mb-6">

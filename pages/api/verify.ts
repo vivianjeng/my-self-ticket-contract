@@ -3,6 +3,8 @@ import {
     getUserIdentifier, 
     SelfBackendVerifier
 } from '@selfxyz/core';
+import { ethers } from 'ethers';
+import { abi } from '../../app/content/abi';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
     if (req.method === 'POST') {
@@ -13,46 +15,45 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                 return res.status(400).json({ message: 'Proof and publicSignals are required' });
             }
 
+            console.log("Proof:", proof);
+            console.log("Public signals:", publicSignals);
+
             const address = await getUserIdentifier(publicSignals);
             console.log("Extracted address from verification result:", address);
 
-            const configuredVerifier = new SelfBackendVerifier(
-                'https://forno.celo.org',
-                "self-birthday",
-            );
+            // Contract details
+            const contractAddress = "0x305B5C02C9E95E5247c66b8B19ce54F0ce130bcb";
 
-            const result = await configuredVerifier.verify(proof, publicSignals);
-            console.log("Verification result:", result);
+            // Connect to Celo network
+            const provider = new ethers.JsonRpcProvider("https://forno.celo.org");
+            const signer = new ethers.Wallet(process.env.PRIVATE_KEY!, provider);
+            const contract = new ethers.Contract(contractAddress, abi, signer);
 
-            if (result.isValid && result.credentialSubject?.date_of_birth) {
-                // Check if it's the user's birthday
-                const birthDate = new Date(result.credentialSubject.date_of_birth);
-                const today = new Date();
-                
-                const isBirthday = birthDate.getMonth() === today.getMonth() && 
-                                 birthDate.getDate() === today.getDate();
-
-                if (isBirthday) {
-                    // TODO: Implement USDC transfer here
-                    // For now, just return success with birthday message
-                    res.status(200).json({
-                        status: 'success',
-                        isBirthday: true,
-                        message: 'Happy Birthday! 100 USDC has been sent to your address.',
-                    });
-                } else {
-                    res.status(200).json({
-                        status: 'success',
-                        isBirthday: false,
-                        message: "It's not your birthday today. Come back on your birthday!",
-                    });
-                }
-            } else {
+            try {
+                // Call claim function
+                const tx = await contract.verifySelfProof( {
+                    a: proof.a,
+                    b: [
+                      [proof.b[0][1], proof.b[0][0]],
+                      [proof.b[1][1], proof.b[1][0]],
+                    ],
+                    c: proof.c,
+                    pubSignals: publicSignals,
+                });
+                await tx.wait();
+                console.log("Successfully called verifySelfProof function");
+                res.status(200).json({
+                    status: 'success',
+                    isBirthday: true,
+                    message: 'Happy Birthday! 100 USDC has been sent to your address.',
+                });
+            } catch (error) {
+                console.error("Error calling verifySelfProof function:", error);
                 res.status(400).json({
                     status: 'error',
                     message: 'Verification failed or date of birth not disclosed',
-                    details: result.isValidDetails
                 });
+                throw error;
             }
         } catch (error) {
             console.error('Error verifying proof:', error);
