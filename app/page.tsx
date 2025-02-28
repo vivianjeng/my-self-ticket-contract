@@ -14,7 +14,7 @@ function Birthday() {
 
     const selfApp = new SelfAppBuilder({
         appName: "Self Birthday",
-        scope: "self-birthday",
+        scope: "Self-Denver-Birthday",
         endpoint: "https://happy-birthday-rho-nine.vercel.app/api/verify",
         // endpoint: "https://6883-37-168-31-204.ngrok-free.app/api/verify",
         logoBase64: logo,
