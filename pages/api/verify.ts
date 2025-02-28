@@ -60,9 +60,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                         gender: savedOptions.gender !== undefined ? savedOptions.gender : enabledDisclosures.gender,
                         expiry_date: savedOptions.expiry_date !== undefined ? savedOptions.expiry_date : enabledDisclosures.expiry_date
                     };
-                    
-                    // Delete the options after use
-                    await kv.del(userId);
                 } else {
                     console.log("No saved options found for userId:", userId);
                 }
