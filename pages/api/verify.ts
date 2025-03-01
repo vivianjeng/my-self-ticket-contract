@@ -44,21 +44,25 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                 console.log("Successfully called verifySelfProof function");
                 res.status(200).json({
                     status: 'success',
-                    isBirthday: true,
-                    message: 'Happy Birthday! 100 USDC has been sent to your address.',
+                    result: true,
+                    credentialSubject: {},
                 });
             } catch (error) {
                 console.error("Error calling verifySelfProof function:", error);
                 res.status(400).json({
                     status: 'error',
+                    result: false,
                     message: 'Verification failed or date of birth not disclosed',
+                    details: {},
                 });
                 throw error;
             }
         } catch (error) {
             console.error('Error verifying proof:', error);
-            return res.status(500).json({ 
+            return res.status(500).json({
+                status: 'error',
                 message: 'Error verifying proof',
+                result: false,
                 error: error instanceof Error ? error.message : 'Unknown error'
             });
         }
