@@ -1,7 +1,6 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import Image from 'next/image';
 import SelfQRcodeWrapper, { SelfApp, SelfAppBuilder } from '@selfxyz/qrcode';
 import { logo } from './content/playgroundAppLogo';
 import { ethers } from 'ethers';
@@ -65,11 +64,9 @@ function Birthday() {
             <nav className="w-full bg-white border-b border-gray-200 py-3 px-6 flex items-center justify-between">
                 <div className="flex items-center">
                     <div className="mr-8">
-                        <Image 
+                        <img
                             src="/self.svg" 
                             alt="Self Logo" 
-                            width={32}
-                            height={32}
                             className="h-8"
                         />
                     </div>
