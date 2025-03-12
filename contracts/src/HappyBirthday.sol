@@ -11,7 +11,7 @@ import {Formatter} from "../libraries/Formatter.sol";
 import {CircuitAttributeHandler} from "../libraries/CircuitAttributeHandler.sol";
 import {CircuitConstants} from "../constants/CircuitConstants.sol";
 
-contract USDCDistribution is SelfVerificationRoot, Ownable {
+contract SelfHappyBirthday is SelfVerificationRoot, Ownable {
     using SafeERC20 for IERC20;
 
     IERC20 public immutable usdc;
