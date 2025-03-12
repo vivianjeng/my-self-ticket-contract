@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import SelfQRcodeWrapper, { SelfApp, SelfAppBuilder } from '@selfxyz/qrcode';
-import { logo } from './content/playgroundAppLogo';
+import { logo } from './content/birthdayAppLogo';
 import { ethers } from 'ethers';
 
 function Birthday() {
@@ -47,7 +47,7 @@ function Birthday() {
         appName: "Self Birthday",
         scope: "Self-Denver-Birthday",
         endpoint: "https://happy-birthday-rho-nine.vercel.app/api/verify",
-        // endpoint: "https://6883-37-168-31-204.ngrok-free.app/api/verify",
+        // endpoint: "https://360c-166-144-250-126.ngrok-free.app/api/verify",
         logoBase64: logo,
         userId: address,
         userIdType: "hex",
