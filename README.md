@@ -25,6 +25,6 @@ bun dev
 ```
 - Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-When developing locally, you can route the requests from the mobile app to your local machine by opening an ngrok endpoint using `ngrok http 3000` and replace `endpoint: "https://playground.self.xyz/api/verify"` in `app/page.tsx` with the newly generated url.
+When developing locally, you can route the requests from the mobile app to your local machine by opening an ngrok endpoint using `ngrok http 3000` and replace `endpoint: "https://playground.self.xyz/api/verify"` in `app/page.tsx` with the newly generated url, that should look something like `endpoint: "https://198c-166-144-250-126.ngrok-free.app/api/verify"`.
 
 When deploying to Vercel, update it to match the URL of your Vercel deployment.

@@ -2568,6 +2568,29 @@ __metadata:
   languageName: node
   linkType: hard
 
+"happy-birthday@workspace:.":
+  version: 0.0.0-use.local
+  resolution: "happy-birthday@workspace:."
+  dependencies:
+    "@eslint/eslintrc": "npm:^3"
+    "@selfxyz/core": "npm:^0.0.6"
+    "@selfxyz/qrcode": "npm:^0.0.9"
+    "@types/node": "npm:^20"
+    "@types/react": "npm:^19.0.10"
+    "@types/react-dom": "npm:^19.0.4"
+    "@vercel/kv": "npm:^3.0.0"
+    eslint: "npm:^9"
+    eslint-config-next: "npm:15.1.7"
+    ethers: "npm:^6.13.5"
+    next: "npm:^15.1.7"
+    postcss: "npm:^8"
+    react: "npm:^19.0.0"
+    react-dom: "npm:^19.0.0"
+    tailwindcss: "npm:^3.4.1"
+    typescript: "npm:^5.7.3"
+  languageName: unknown
+  linkType: soft
+
 "has-bigints@npm:^1.0.2":
   version: 1.1.0
   resolution: "has-bigints@npm:1.1.0"
@@ -3848,29 +3871,6 @@ __metadata:
   checksum: 10c0/00d5fa51f8dded94d7429700fb91a0c1ead00ae2c7fd27089f0c5b63e6eca36197fe46384631872690a66f390c5e27198e99006ab77ae472692ab9c2ca903f36
   languageName: node
   linkType: hard
-
-"playground@workspace:.":
-  version: 0.0.0-use.local
-  resolution: "playground@workspace:."
-  dependencies:
-    "@eslint/eslintrc": "npm:^3"
-    "@selfxyz/core": "npm:^0.0.6"
-    "@selfxyz/qrcode": "npm:^0.0.9"
-    "@types/node": "npm:^20"
-    "@types/react": "npm:^19.0.10"
-    "@types/react-dom": "npm:^19.0.4"
-    "@vercel/kv": "npm:^3.0.0"
-    eslint: "npm:^9"
-    eslint-config-next: "npm:15.1.7"
-    ethers: "npm:^6.13.5"
-    next: "npm:^15.1.7"
-    postcss: "npm:^8"
-    react: "npm:^19.0.0"
-    react-dom: "npm:^19.0.0"
-    tailwindcss: "npm:^3.4.1"
-    typescript: "npm:^5.7.3"
-  languageName: unknown
-  linkType: soft
 
 "possible-typed-array-names@npm:^1.0.0":
   version: 1.1.0
