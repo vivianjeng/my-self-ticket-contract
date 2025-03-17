@@ -1,0 +1,18 @@
+# Compiler files
+cache/
+out/
+lib/
+
+# Ignores development broadcast logs
+/broadcast/
+!/broadcast/HappyBirthday.s.sol/
+/broadcast/HappyBirthday.s.sol/*
+!/broadcast/HappyBirthday.s.sol/42220/
+/broadcast/HappyBirthday.s.sol/42220/*
+!/broadcast/HappyBirthday.s.sol/42220/run-latest.json
+
+# Docs
+docs/
+
+# Dotenv file
+.env
