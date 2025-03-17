@@ -1,7 +1,6 @@
 # Compiler files
 cache/
 out/
-lib/
 
 # Ignores development broadcast logs
 /broadcast/
@@ -16,3 +15,6 @@ docs/
 
 # Dotenv file
 .env
+
+# Node modules
+node_modules/

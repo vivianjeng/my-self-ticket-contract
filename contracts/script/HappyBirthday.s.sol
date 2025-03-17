@@ -14,7 +14,6 @@ contract HappyBirthdayScript is Script {
         address identityVerificationHub = address(0x77117D60eaB7C044e785D68edB6C7E0e134970Ea);
         uint256 scope = 1;
         uint256 attestationId = 1;
-        // Set your own token address
         address usdcToken = address(0xcebA9300f2b948710d2653dD7B07f33A8B32118C);
         
         bool olderThanEnabled = false;

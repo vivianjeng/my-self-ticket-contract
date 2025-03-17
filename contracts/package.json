@@ -1,9 +1,12 @@
 {
-  "name": "contracts",
+  "name": "happy-birthday-contracts",
   "version": "1.0.0",
+  "scripts": {
+    "build": "forge build",
+    "lint": "forge fmt"
+  },
   "main": "index.js",
   "license": "MIT",
-  "private": true,
   "dependencies": {
     "@selfxyz/contracts": "^0.0.2"
   }
