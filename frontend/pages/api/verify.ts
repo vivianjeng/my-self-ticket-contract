@@ -18,6 +18,15 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             console.log("Proof:", proof);
             console.log("Public signals:", publicSignals);
 
+            // Uncomment this to use the Self backend verifier for offchain verification instead
+            // const selfdVerifier = new SelfBackendVerifier(
+            //     'https://forno.celo.org',
+            //     "Self-Denver-Birthday",
+            //     "hex",
+            // );
+            // const result = await selfdVerifier.verify(proof, publicSignals);
+            // console.log("Verification result:", result);
+
             const address = await getUserIdentifier(publicSignals);
             console.log("Extracted address from verification result:", address);
 
@@ -31,7 +40,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
             try {
                 // Call claim function
-                const tx = await contract.verifySelfProof( {
+                const tx = await contract.verifySelfProof({
                     a: proof.a,
                     b: [
                       [proof.b[0][1], proof.b[0][0]],
