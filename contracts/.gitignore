@@ -1,20 +1,18 @@
-# Compiler files
-cache/
-out/
-
-# Ignores development broadcast logs
-/broadcast/
-!/broadcast/HappyBirthday.s.sol/
-/broadcast/HappyBirthday.s.sol/*
-!/broadcast/HappyBirthday.s.sol/42220/
-/broadcast/HappyBirthday.s.sol/42220/*
-!/broadcast/HappyBirthday.s.sol/42220/run-latest.json
-
-# Docs
-docs/
-
-# Dotenv file
+node_modules
 .env
 
-# Node modules
-node_modules/
+# Hardhat files
+/cache
+/artifacts
+
+# TypeChain files
+/typechain
+/typechain-types
+
+# solidity-coverage files
+/coverage
+/coverage.json
+
+# Hardhat Ignition default folder for deployments against a local node
+ignition/deployments/chain-31337
+ignition/deployments/chain-42220

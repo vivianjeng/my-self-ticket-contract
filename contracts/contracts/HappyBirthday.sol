@@ -1,15 +1,15 @@
 // SPDX-License-Identifier: MIT
 pragma solidity 0.8.28;
 
-import {SelfVerificationRoot} from "@selfxyz/abstract/SelfVerificationRoot.sol";
-import {ISelfVerificationRoot} from "@selfxyz/interfaces/ISelfVerificationRoot.sol";
-import {IVcAndDiscloseCircuitVerifier} from "@selfxyz/interfaces/IVcAndDiscloseCircuitVerifier.sol";
-import {IIdentityVerificationHubV1} from "@selfxyz/interfaces/IIdentityVerificationHubV1.sol";
+import {SelfVerificationRoot} from "@selfxyz/contracts/contracts/abstract/SelfVerificationRoot.sol";
+import {ISelfVerificationRoot} from "@selfxyz/contracts/contracts/interfaces/ISelfVerificationRoot.sol";
+import {IVcAndDiscloseCircuitVerifier} from "@selfxyz/contracts/contracts/interfaces/IVcAndDiscloseCircuitVerifier.sol";
+import {IIdentityVerificationHubV1} from "@selfxyz/contracts/contracts/interfaces/IIdentityVerificationHubV1.sol";
 import {Ownable} from "@openzeppelin/contracts/access/Ownable.sol";
 import {IERC20, SafeERC20} from "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
-import {Formatter} from "@selfxyz/libraries/Formatter.sol";
-import {CircuitAttributeHandler} from "@selfxyz/libraries/CircuitAttributeHandler.sol";
-import {CircuitConstants} from "@selfxyz/constants/CircuitConstants.sol";
+import {Formatter} from "@selfxyz/contracts/contracts/libraries/Formatter.sol";
+import {CircuitAttributeHandler} from "@selfxyz/contracts/contracts/libraries/CircuitAttributeHandler.sol";
+import {CircuitConstants} from "@selfxyz/contracts/contracts/constants/CircuitConstants.sol";
 
 contract SelfHappyBirthday is SelfVerificationRoot, Ownable {
     using SafeERC20 for IERC20;
