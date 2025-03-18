@@ -1,0 +1,7 @@
+{
+    "rootDirectory": "frontend",
+    "builds": [
+      { "src": "package.json", "use": "@vercel/next" }
+    ]
+  }
+  
