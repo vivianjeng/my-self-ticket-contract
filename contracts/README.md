@@ -1,5 +1,6 @@
 # Happy Birthday Contract
-Happy birthday contracts provides a simple example usage of Self contracts
+
+Simple example usage of Self contracts.
 
 ## Getting Started
 

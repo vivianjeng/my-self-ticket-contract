@@ -31,7 +31,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
             try {
                 // Call claim function
-                const tx = await contract.verifySelfProof( {
+                const tx = await contract.verifySelfProof({
                     a: proof.a,
                     b: [
                       [proof.b[0][1], proof.b[0][0]],
