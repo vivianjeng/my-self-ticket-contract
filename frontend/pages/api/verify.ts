@@ -27,7 +27,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             // const result = await selfdVerifier.verify(proof, publicSignals);
             // console.log("Verification result:", result);
 
-            const address = await getUserIdentifier(publicSignals);
+            const address = await getUserIdentifier(publicSignals, "hex");
             console.log("Extracted address from verification result:", address);
 
             // Contract details
