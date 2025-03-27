@@ -13,6 +13,7 @@ Linking to the contracts here: https://github.com/selfxyz/self/compare/main...fe
 TODO: Add them to this repo.
 
 - Edit the QR code SDK arguments in `app/page.tsx` to change the proof request, then edit the API endpoint `pages/api/verify.ts` so it sends the right transaction to your contract.
+- Copy `.env.example` to `.env` and add your private key.
 - Run the development server:
 ```bash
 npm run dev
