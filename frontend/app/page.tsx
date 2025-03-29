@@ -43,12 +43,13 @@ function Birthday() {
         resolveEns();
     }, [input]);
 
+
     const selfApp = new SelfAppBuilder({
         appName: "Self Birthday",
         scope: "Self-Denver-Birthday",
-        endpoint: "https://happy-birthday-rho-nine.vercel.app/api/verify",
+        // endpoint: "https://happy-birthday-rho-nine.vercel.app/api/verify",
         // run `ngrok http 3000` and copy the url here to test locally
-        // endpoint: "https://8ce6-2400-4150-8300-2d00-58ef-92a8-6018-801a.ngrok-free.app/api/verify",
+        endpoint: "https://a490-133-3-201-47.ngrok-free.app/api/verify",
         logoBase64: logo,
         userId: address,
         userIdType: "hex",
@@ -123,8 +124,8 @@ function Birthday() {
                         <div className="flex justify-center mb-6">
                             <SelfQRcodeWrapper
                                 selfApp={selfApp}
+                                type='websocket'
                                 onSuccess={handleSuccess}
-                                darkMode={false}
                             />
                         </div>
                     )}
