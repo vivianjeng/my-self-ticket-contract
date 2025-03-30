@@ -1,7 +1,7 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import { 
     getUserIdentifier, 
-    SelfBackendVerifier
+    SelfBackendVerifier,
 } from '@selfxyz/core';
 import { ethers } from 'ethers';
 import { abi } from '../../app/content/abi';
@@ -31,7 +31,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             console.log("Extracted address from verification result:", address);
 
             // Contract details
-            const contractAddress = "0x305B5C02C9E95E5247c66b8B19ce54F0ce130bCb";
+            const contractAddress = "0x448333D3b622bc32629583a01e544f7bc7509237";
 
             // Connect to Celo network
             const provider = new ethers.JsonRpcProvider("https://forno.celo.org");
@@ -39,7 +39,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             const contract = new ethers.Contract(contractAddress, abi, signer);
 
             try {
-                // Call claim function
                 const tx = await contract.verifySelfProof({
                     a: proof.a,
                     b: [

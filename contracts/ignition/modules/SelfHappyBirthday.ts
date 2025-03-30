@@ -1,10 +1,14 @@
 import { buildModule } from "@nomicfoundation/hardhat-ignition/modules";
+import { castFromScope } from "@selfxyz/core";
 
-const DEFAULT_IDENTITY_VERIFICATION_HUB = "0x77117D60eaB7C044e785D68edB6C7E0e134970Ea";
-const DEFAULT_SCOPE = 1n;
+// For prod environment
+// const DEFAULT_IDENTITY_VERIFICATION_HUB = "0x9AcA2112D34Ef021084264F6f5eef2a99a5bA7b1";
+// For staging environment
+const DEFAULT_IDENTITY_VERIFICATION_HUB = "0xDCAa9D9b8E8Bb5696c5d4b47da84aD37b8DEb9A8";
+const DEFAULT_SCOPE = castFromScope('Self-Denver-Birthday');
 const DEFAULT_ATTESTATION_ID = 1n;
 const DEFAULT_TOKEN = "0xcebA9300f2b948710d2653dD7B07f33A8B32118C";
-const DEFAULT_OLDER_THAN_ENABLED = true;
+const DEFAULT_OLDER_THAN_ENABLED = false;
 const DEFAULT_OLDER_THAN = 18n;
 const DEFAULT_FORBIDDEN_COUNTRIES_ENABLED = false;
 const DEFAULT_FORBIDDEN_COUNTRIES_LIST_PACKED = [0n, 0n, 0n, 0n];
