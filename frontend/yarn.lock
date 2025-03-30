@@ -620,10 +620,10 @@
   resolved "https://registry.yarnpkg.com/@rushstack/eslint-patch/-/eslint-patch-1.11.0.tgz#75dce8e972f90bba488e2b0cc677fb233aa357ab"
   integrity sha512-zxnHvoMQVqewTJr/W4pKjF0bMGiKJv1WX7bSrkl46Hg0QjESbzBROWK0Wg4RphzSOS5Jiy7eFimmM3UgMrMZbQ==
 
-"@selfxyz/core@^0.0.15":
-  version "0.0.15"
-  resolved "https://registry.yarnpkg.com/@selfxyz/core/-/core-0.0.15.tgz#533eff6851120886a0ebbda6ec884a44371ccf91"
-  integrity sha512-QpjE30dp5kpQjDVJxh6zAnF4I9yQelj57lBnzuaosQll2CADEsluMLOVxBhtaR90ueSvgULIqLcgS5tMdbUp9g==
+"@selfxyz/core@^0.0.17":
+  version "0.0.17"
+  resolved "https://registry.yarnpkg.com/@selfxyz/core/-/core-0.0.17.tgz#f450d0dc1659c5309767ba6b097139f59728a6df"
+  integrity sha512-u+gkfvukNUFuKErbLFzCofbE6r7JsGWx/ZlDir1Kiyopdj+0aZFc6cENEfqPnsodyeIcujaEZJ3GMBgWt4m4qg==
   dependencies:
     "@types/react" "^18.3.4"
     "@types/react-dom" "^18.3.0"
@@ -3406,6 +3406,7 @@ streamsearch@^1.1.0:
   integrity sha512-Mcc5wHehp9aXz1ax6bZUyY5afg9u2rv5cqQI3mRrYkGC8rW2hM02jWuwjtL++LS5qinSyhj2QfLyNsuc+VsExg==
 
 "string-width-cjs@npm:string-width@^4.2.0", string-width@^4.1.0:
+  name string-width-cjs
   version "4.2.3"
   resolved "https://registry.yarnpkg.com/string-width/-/string-width-4.2.3.tgz#269c7117d27b05ad2e536830a8ec895ef9c6d010"
   integrity sha512-wKyQRQpjJ0sIp62ErSZdGsjMJWsap5oRNihHhu6G7JVO/9jIB6UyevL+tXuOqrng8j/cxKTWyWUwvSTriiZz/g==
@@ -3492,6 +3493,7 @@ string.prototype.trimstart@^1.0.8:
     es-object-atoms "^1.0.0"
 
 "strip-ansi-cjs@npm:strip-ansi@^6.0.1", strip-ansi@^6.0.0, strip-ansi@^6.0.1:
+  name strip-ansi-cjs
   version "6.0.1"
   resolved "https://registry.yarnpkg.com/strip-ansi/-/strip-ansi-6.0.1.tgz#9e26c63d30f53443e9489495b2105d37b67a85d9"
   integrity sha512-Y38VPSHcqkFrCpFnQ9vuSXmquuv5oXOKpGeT6aGrr3o3Gc9AlVa6JBfUSOCnbxGGZF+/0ooI7KrPuUSztUdU5A==
