@@ -2,10 +2,7 @@ import { NextApiRequest, NextApiResponse } from 'next';
 import { 
     getUserIdentifier, 
     SelfBackendVerifier,
-    countries,
-    castFromScope,
 } from '@selfxyz/core';
-import {formatProof} from "../../../../self/common/src/utils/contracts/formatCallData";
 import { ethers } from 'ethers';
 import { abi } from '../../app/content/abi';
 
