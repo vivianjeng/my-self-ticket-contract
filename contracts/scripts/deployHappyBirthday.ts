@@ -14,9 +14,11 @@ async function main() {
   });
   console.log("Calculated future contract address:", futureAddress);
   
+  // For prod environment
+  // const identityVerificationHub = "0x9AcA2112D34Ef021084264F6f5eef2a99a5bA7b1";
   // For staging environment
   const identityVerificationHub = "0xDCAa9D9b8E8Bb5696c5d4b47da84aD37b8DEb9A8";
-  const scope = hashEndpointWithScope(futureAddress, 'Self-Denver-Birthday');
+  const scope = hashEndpointWithScope("https://bfcf-2400-4150-8300-2d00-f83f-9c52-f581-17b9.ngrok-free.app", 'Self-Denver-Birthday');
   const attestationId = 1n;
   const token = "0xcebA9300f2b948710d2653dD7B07f33A8B32118C";
   const olderThanEnabled = false;
