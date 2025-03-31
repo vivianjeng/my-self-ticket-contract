@@ -49,7 +49,7 @@ function Birthday() {
         scope: "Self-Denver-Birthday",
         // endpoint: "https://happy-birthday-rho-nine.vercel.app/api/verify",
         // run `ngrok http 3000` and copy the url here to test locally
-        endpoint: "https://95c2-133-3-201-47.ngrok-free.app/api/verify",
+        endpoint: "https://bfcf-2400-4150-8300-2d00-f83f-9c52-f581-17b9.ngrok-free.app/api/verify",
         logoBase64: logo,
         userId: address,
         userIdType: "hex",

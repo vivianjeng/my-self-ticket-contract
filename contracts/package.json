@@ -5,8 +5,7 @@
   "license": "MIT",
   "scripts": {
     "build": "npx hardhat compile",
-    "deploy": "npx hardhat ignition deploy ignition/modules/SelfHappyBirthday.ts --network celo --verify",
-    "redeploy": "npx hardhat ignition deploy --reset ignition/modules/SelfHappyBirthday.ts --network celo --verify"
+    "deploy": "npx hardhat run scripts/deployHappyBirthday.ts --network celo"
   },
   "devDependencies": {
     "@nomicfoundation/hardhat-chai-matchers": "^2.0.0",
@@ -32,6 +31,6 @@
   },
   "dependencies": {
     "@selfxyz/contracts": "^0.0.2",
-    "@selfxyz/core": "^0.0.17"
+    "@selfxyz/core": "^0.0.19"
   }
 }

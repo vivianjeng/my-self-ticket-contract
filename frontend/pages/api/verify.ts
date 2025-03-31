@@ -18,20 +18,22 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             console.log("Proof:", proof);
             console.log("Public signals:", publicSignals);
 
+            // Contract details
+            const contractAddress = "0x881ED38b3ba7EE24eEAD094FA5D6ddD2F56Ba1c0";
+
             // Uncomment this to use the Self backend verifier for offchain verification instead
             // const selfdVerifier = new SelfBackendVerifier(
             //     'https://forno.celo.org',
             //     "Self-Denver-Birthday",
+            //     "your ngrok endpoint",
             //     "hex",
+            // //  true // If you want to use mock passport
             // );
             // const result = await selfdVerifier.verify(proof, publicSignals);
             // console.log("Verification result:", result);
 
             const address = await getUserIdentifier(publicSignals, "hex");
             console.log("Extracted address from verification result:", address);
-
-            // Contract details
-            const contractAddress = "0x448333D3b622bc32629583a01e544f7bc7509237";
 
             // Connect to Celo network
             const provider = new ethers.JsonRpcProvider("https://forno.celo.org");
