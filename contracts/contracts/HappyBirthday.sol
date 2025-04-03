@@ -16,7 +16,10 @@ contract SelfHappyBirthday is SelfVerificationRoot, Ownable {
 
     IERC20 public immutable usdc;
 
-    uint256 constant CLAIMABLE_AMOUNT = 100000000;
+    // 100 dollar
+    // uint256 constant CLAIMABLE_AMOUNT = 100000000;
+    // 1 dollar
+    uint256 constant CLAIMABLE_AMOUNT = 1000000;
 
     mapping(uint256 => bool) internal _nullifiers;
 
