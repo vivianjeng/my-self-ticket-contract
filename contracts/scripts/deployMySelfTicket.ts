@@ -17,7 +17,7 @@ async function main() {
   // For prod environment
   // const identityVerificationHub = "0x9AcA2112D34Ef021084264F6f5eef2a99a5bA7b1";
   // For staging environment
-  const identityVerificationHub = "0xDCAa9D9b8E8Bb5696c5d4b47da84aD37b8DEb9A8";
+  const identityVerificationHub = "0x3e2487a250e2A7b56c7ef5307Fb591Cc8C83623D";
 
   const scope = hashEndpointWithScope("https://my-self-ticket-ethtaipei.vercel.app/api/verify", 'My-Self-Ticket');
   const attestationId = 1n;

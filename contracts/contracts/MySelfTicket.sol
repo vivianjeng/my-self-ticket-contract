@@ -42,12 +42,12 @@ contract MySelfTicket is SelfVerificationRoot, Ownable {
     function verifySelfProof(
         IVcAndDiscloseCircuitVerifier.VcAndDiscloseProof memory proof
     ) public view override {
-        // if (
-        //     _scope !=
-        //     proof.pubSignals[CircuitConstants.VC_AND_DISCLOSE_SCOPE_INDEX]
-        // ) {
-        //     revert InvalidScope();
-        // }
+        if (
+            _scope !=
+            proof.pubSignals[CircuitConstants.VC_AND_DISCLOSE_SCOPE_INDEX]
+        ) {
+            revert InvalidScope();
+        }
 
         if (
             _attestationId !=
