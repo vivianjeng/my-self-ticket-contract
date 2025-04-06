@@ -44,6 +44,11 @@ const config: HardhatUserConfig = {
       url: process.env.CELO_RPC_URL || "https://forno.celo.org",
       accounts: [process.env.CELO_KEY as string],
     },
+    amoy: {
+      chainId: 80002,
+      url: process.env.CELO_RPC_URL || "https://amoy.celo.org",
+      accounts: [process.env.CELO_KEY as string],
+    },
   },
   etherscan: {
     apiKey: {
